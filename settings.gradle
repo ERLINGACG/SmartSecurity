@@ -1,0 +1,5 @@
+rootProject.name = 'SmartSecurityWeb'
+include 'Main'
+include 'Controller'
+include 'Service'
+include 'Opencv_Dlib'

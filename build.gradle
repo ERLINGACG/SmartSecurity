@@ -1,0 +1,55 @@
+import org.springframework.boot.gradle.plugin.SpringBootPlugin
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.5.3'  // 新增Spring Boot插件
+    id 'io.spring.dependency-management' version '1.1.4'  // 新增依赖管理插件
+}
+
+group = 'com.erling'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'org.springframework.boot' // 子模块单独应用Spring Boot插件
+
+    dependencyManagement {
+        imports {
+
+            mavenBom SpringBootPlugin.BOM_COORDINATES
+        }
+    }
+
+    // 公共测试依赖
+    dependencies {
+
+        testImplementation 'org.springframework.boot:spring-boot-starter-test' // 测试依赖
+    }
+    dependencies {
+        implementation 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok' // 添加注解处理器
+        implementation 'org.springframework.boot:spring-boot-starter-actuator' // 监控和管理
+        implementation 'org.springframework.boot:spring-boot-starter-web' //Spring Web
+        implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+    }
+    dependencies {
+        implementation 'net.java.dev.jna:jna:5.14.0'
+    }
+
+
+    test {
+        useJUnitPlatform()
+    }
+}
+bootJar {
+    mainClass = 'com.erling.Application' // 替换为你的主类全限定名
+}
+test {
+    useJUnitPlatform()
+}
