@@ -21,6 +21,7 @@ public class DnnDetectorControllerTest {
     public DnnDetectorControllerTest(DnnDetectorServiceTest dnnDetectorServiceTest) {
         this.dnnDetectorServiceTest = dnnDetectorServiceTest;
     }
+
     @PostMapping("/detect")
     public ResponseEntity<byte[]> detect(@RequestParam("image") MultipartFile image) throws IOException {
         byte[] bytes = dnnDetectorServiceTest.detectTest(image.getBytes());

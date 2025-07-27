@@ -11,9 +11,12 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Controller" />
+            <option value="$PROJECT_DIR$/Dao" />
             <option value="$PROJECT_DIR$/Main" />
             <option value="$PROJECT_DIR$/Opencv_Dlib" />
+            <option value="$PROJECT_DIR$/Pojo" />
             <option value="$PROJECT_DIR$/Service" />
+            <option value="$PROJECT_DIR$/Utils" />
           </set>
         </option>
       </GradleProjectSettings>
