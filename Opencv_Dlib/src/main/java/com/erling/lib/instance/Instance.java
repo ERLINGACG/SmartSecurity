@@ -1,5 +1,6 @@
-package com.erling.lib.opencv.instance;
+package com.erling.lib.instance;
 
+import com.erling.lib.dlib.face.FacialRecognition;
 import com.erling.lib.opencv.dnn.DnnDetector;
 import com.erling.lib.opencv.edge.EdgeDetection;
 import com.erling.lib.opencv.utils.Utils;
@@ -13,6 +14,8 @@ public enum Instance {
     OPENCV_4120_EDGE(InstanceConfig.OPENCV_4120_RELEASE, EdgeDetection.class),
     OPENCV_4120_DNN(InstanceConfig.OPENCV_4120_RELEASE, DnnDetector.class),
     OPENCV_4120_UTILS(InstanceConfig.OPENCV_4120_RELEASE, Utils.class),
+
+    DLIB_1940_FACE(InstanceConfig.OPENCV_4120_RELEASE, FacialRecognition.class),
     ;
 
     private final String path;

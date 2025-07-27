@@ -1,9 +1,8 @@
 package com.erling.service.opencv.utils;
 
-import com.erling.lib.opencv.instance.Instance;
+import com.erling.lib.instance.Instance;
 import com.erling.lib.opencv.struct.output.ImageData;
 import com.erling.lib.opencv.utils.Utils;
-import com.sun.jna.ptr.IntByReference;
 import org.springframework.stereotype.Service;
 
 @Service

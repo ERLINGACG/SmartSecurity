@@ -1,9 +1,9 @@
 package com.erling.service.opencv.edge;
 
 import com.erling.lib.opencv.edge.EdgeDetection;
-import com.erling.lib.opencv.instance.Instance;
-import com.erling.lib.opencv.instance.LibraryAnn;
-import com.erling.lib.opencv.instance.Load;
+import com.erling.lib.instance.Instance;
+import com.erling.lib.instance.LibraryAnn;
+import com.erling.lib.instance.Load;
 import com.erling.lib.opencv.struct.output.ImageData;
 import com.erling.lib.opencv.struct.param.EdgeParam;
 import com.sun.jna.Pointer;

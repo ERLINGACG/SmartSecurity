@@ -3,3 +3,7 @@ include 'Main'
 include 'Controller'
 include 'Service'
 include 'Opencv_Dlib'
+include 'Utils'
+include 'Dao'
+
+include 'Pojo'

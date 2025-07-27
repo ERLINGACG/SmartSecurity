@@ -1,0 +1,11 @@
+<select id="getAllUsersTest" resultType="com.erling.entity.user.User">
+    SELECT
+    uid,
+    email,
+    password_hash AS passwordHash,  <!-- 使用别名匹配驼峰字段 -->
+    nickName,
+    created_at AS createdAt  <!-- 使用别名匹配驼峰字段 -->
+    FROM users
+</select>
+
+

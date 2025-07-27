@@ -1,4 +1,4 @@
-package com.erling.lib.opencv.instance;
+package com.erling.lib.instance;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
@@ -10,8 +10,15 @@ public class Load {
     public Load(Class<? extends Library> targetInterface) {
         this.targetInterface = targetInterface;
     }
+    public  <T extends Library> T loading() {
+        return getT(targetInterface);
+    }
+    public static <T extends Library> T loading(Class<T> targetInterface){
+        return getT(targetInterface);
+    }
+
     @SuppressWarnings("unchecked")
-    public <T extends Library> T loading() {
+    private static <T extends Library> T getT(Class<? extends Library> targetInterface) {
         try{
             LibraryAnn annotation = targetInterface.getAnnotation(LibraryAnn.class);
             if (annotation != null && annotation.WindowsPath()!= null) {

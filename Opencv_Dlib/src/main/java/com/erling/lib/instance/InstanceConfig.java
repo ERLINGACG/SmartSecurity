@@ -1,4 +1,4 @@
-package com.erling.lib.opencv.instance;
+package com.erling.lib.instance;
 
 
 import lombok.Getter;

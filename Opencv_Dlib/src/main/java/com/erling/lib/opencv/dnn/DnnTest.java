@@ -1,6 +1,6 @@
 package com.erling.lib.opencv.dnn;
 
-import com.erling.lib.opencv.instance.Instance;
+import com.erling.lib.instance.Instance;
 import com.erling.lib.opencv.struct.output.ImageData;
 import com.sun.jna.Pointer;
 

@@ -1,8 +1,8 @@
 package com.erling.test.opencv;
 
 import com.erling.lib.opencv.dnn.DnnDetector;
-import com.erling.lib.opencv.instance.LibraryAnn;
-import com.erling.lib.opencv.instance.Load;
+import com.erling.lib.instance.LibraryAnn;
+import com.erling.lib.instance.Load;
 import com.erling.lib.opencv.struct.output.ImageData;
 import com.sun.jna.Pointer;
 import org.junit.jupiter.api.Test;

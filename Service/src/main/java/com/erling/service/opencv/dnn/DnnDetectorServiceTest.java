@@ -1,7 +1,7 @@
 package com.erling.service.opencv.dnn;
 
 import com.erling.lib.opencv.dnn.DnnDetector;
-import com.erling.lib.opencv.instance.Instance;
+import com.erling.lib.instance.Instance;
 import com.erling.lib.opencv.struct.output.ImageData;
 import com.sun.jna.Pointer;
 import org.springframework.stereotype.Service;
