@@ -11,4 +11,9 @@ public class Result<T> {
     private String message;
     private T data;
 
+    public Result(ResultEnum e,T data){
+        this.code = e.getCode();
+        this.message = e.getMessage();
+        this.data = data;
+    }
 }

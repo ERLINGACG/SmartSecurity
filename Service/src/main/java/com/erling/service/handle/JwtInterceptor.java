@@ -12,10 +12,19 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 @Component
 public class JwtInterceptor implements HandlerInterceptor {
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private static final List<String> EXCLUDE_PATHS = Arrays.asList(
+            "/user/api/login",
+            "/user/api/register",
+            "/user/api/getCodeImage",
+            "/user/test/hello3",
+            "/" //开发环境下放通所有接口
+
+    );
 
 
     @Override
@@ -25,9 +34,10 @@ public class JwtInterceptor implements HandlerInterceptor {
     ) throws Exception {
 
         // 排除登录/注册等无需验证的接口
-        if (request.getRequestURI().contains("/user/api/login") ||
-                request.getRequestURI().contains("/user/api/register"))
-        {
+        boolean shouldExclude = EXCLUDE_PATHS.stream()
+                .anyMatch(path -> request.getRequestURI().contains(path));
+
+        if (shouldExclude) {
             return true;
         }
 

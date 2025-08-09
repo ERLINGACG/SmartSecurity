@@ -36,8 +36,12 @@ subprojects {
         implementation 'org.springframework.boot:spring-boot-starter-actuator' // 监控和管理
         implementation 'org.springframework.boot:spring-boot-starter-web' //Spring Web
         implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+        implementation 'org.springframework.boot:spring-boot-starter-aop' // 面向切面编程
+
         implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
         implementation 'org.springframework.boot:spring-boot-starter-security'
+
         implementation 'org.springframework.boot:spring-boot-starter-validation'
 
         // 新增 MyBatis Plus 依赖
@@ -50,6 +54,8 @@ subprojects {
         implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
         implementation 'com.github.penggle:kaptcha:2.3.2' // 验证码
+
+
     }
     dependencies {
         implementation 'net.java.dev.jna:jna:5.14.0'

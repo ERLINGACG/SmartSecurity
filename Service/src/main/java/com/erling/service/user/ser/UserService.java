@@ -6,6 +6,7 @@ import com.erling.utils.jwt.JwtUtils;
 import com.erling.utils.log.Logger;
 import com.erling.utils.passworld.PasswordUtils;
 import com.erling.utils.result.Result;
+import com.erling.utils.result.ResultEnum;
 import com.google.code.kaptcha.Producer;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -59,16 +60,14 @@ public class UserService {
                                         token,
                                         EXPIRATION_MS/1000))
                         .body(new Result<>(
-                                200,
-                                "登录成功",
-                               token
+                                ResultEnum.LOGIN_SUCCESS,
+                                token
                             )
                         );
             } else {
                 return ResponseEntity.ok(
                         new Result<>(
-                                200,
-                                "密码错误",
+                                ResultEnum.WRONG_PASSWORD,
                                 null
                         )
                 );
@@ -88,8 +87,7 @@ public class UserService {
         if (u != null) {
             return ResponseEntity.ok(
                     new Result<>(
-                            400,
-                            "邮箱已注册",
+                            ResultEnum.EMAIL_REGISTERED,
                             null
                     )
             );
@@ -101,8 +99,7 @@ public class UserService {
 
             return ResponseEntity.ok(
                     new Result<>(
-                            200,
-                            "注册成功",
+                            ResultEnum.REGISTER_SUCCESS,
                             b
                     )
             );
@@ -111,8 +108,7 @@ public class UserService {
             Logger.getLogger(UserService.class).error(e.getMessage());
             return ResponseEntity.ok(
                     new Result<>(
-                            400,
-                            "注册失败",
+                            ResultEnum.INTERNAL_SERVER_ERROR,
                             null
                     )
             );
@@ -187,10 +183,17 @@ public class UserService {
         }
         return checkToken(token);
     }
+    public ResponseEntity<Result<?>> test() {
+        return ResponseEntity.ok(
+                new Result<>(
+                        ResultEnum.SUCCESS,
+                        "test"
+                )
+        );
+    }
     public boolean checkCode(String inputCode) {
         return Objects.equals(inputCode, code);
     }
-    public boolean checkToken_s(String token) {
-        return JwtUtils.isTokenExpired(token);
-    }
+
+
 }

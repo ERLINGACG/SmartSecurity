@@ -10,5 +10,6 @@ public interface DnnDetector extends Library {
             Pointer dnnDetector ,
             byte[] input,
             int size,
-            ImageData output);
+            ImageData output
+    );
 }

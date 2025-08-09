@@ -11,10 +11,7 @@ public class ImageData extends Structure {
     public int width;
     public int height;
     public int channels;
-
     public int size;
-    // 对应unique_ptr<unsigned char[]>
-    // 使用Pointer类型接收原生内存指针
     public Pointer data;
 
     // 可选：添加内存访问辅助方法
