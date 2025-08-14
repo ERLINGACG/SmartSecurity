@@ -12,6 +12,9 @@ public abstract class GroupAspectBase implements AspectInterface {
     @Override
     public void isAccessReturn(){}
 
+    @Override
+    public void isAccessFuncTime(){}
+
     public Object isAccessAll(ProceedingJoinPoint joinPoint) throws Throwable  {
        return null;
     }

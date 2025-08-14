@@ -183,14 +183,6 @@ public class UserService {
         }
         return checkToken(token);
     }
-    public ResponseEntity<Result<?>> test() {
-        return ResponseEntity.ok(
-                new Result<>(
-                        ResultEnum.SUCCESS,
-                        "test"
-                )
-        );
-    }
     public boolean checkCode(String inputCode) {
         return Objects.equals(inputCode, code);
     }

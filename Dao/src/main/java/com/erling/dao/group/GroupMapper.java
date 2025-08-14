@@ -19,7 +19,7 @@ public interface GroupMapper {
 
 
     @Insert("INSERT INTO smartsecuritydb.`group` " +
-            "(groupName, groupEmail,groupTopic,groupDescription,groupVisibility) " +
+            "(groupName,groupEmail,groupTopic,groupDescription,groupVisibility) " +
             "VALUES (#{groupName},#{groupEmail}, #{groupTopic}, #{groupDescription},#{groupVisibility})")
     boolean insertGroup(Group group);
 

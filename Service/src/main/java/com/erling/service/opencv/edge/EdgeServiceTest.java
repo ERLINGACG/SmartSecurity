@@ -16,7 +16,7 @@ public class EdgeServiceTest {
     private final Pointer EdgeClassPointer;
 
     @LibraryAnn(
-            WindowsPath = "lib\\x64\\debug\\SmartSecurityCoreLibTest"
+            WindowsPath = ".\\lib\\x64\\debug\\SmartSecurityCoreLibTest"
     )
     interface Edge2 extends EdgeDetection{}
     EdgeServiceTest(){

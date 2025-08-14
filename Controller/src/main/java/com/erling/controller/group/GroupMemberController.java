@@ -26,6 +26,20 @@ public class GroupMemberController {
 
             return groupMemberService.addGroupMember(groupMember, file.getBytes());
     }
+
+    @GetMapping("/get/{gid}")
+    public ResponseEntity<Result<?>> getGroupMembers(@PathVariable int gid) {
+        return groupMemberService.getGroupMembers(gid);
+    }
+    @PutMapping("/update")
+    public ResponseEntity<Result<?>> updateGroupMember(@RequestBody GroupMember groupMember) {
+        return groupMemberService.updateGroupMember(groupMember);
+    }
+    @DeleteMapping("/delete/{gid}/{mid}")
+    public ResponseEntity<Result<?>> deleteGroupMember(@PathVariable int gid,@PathVariable int mid) {
+        return groupMemberService.deleteGroupMember(gid,mid);
+    }
+
     @PostMapping("/verify/{id}")
     public ResponseEntity<Result<?>> verifyGroupMember(
             @PathVariable int id,

@@ -19,10 +19,10 @@ public class GroupController {
      public ResponseEntity<Result<?>> addGroup(@RequestBody Group group) {
          return groupService.addGroup(group);
      }
-     @DeleteMapping("/delete/{gid}")
-     public ResponseEntity<Result<?>> deleteGroup(@PathVariable int gid, @RequestHeader("Group-Email") String email) {
-         return groupService.deleteGroup(gid, email);
-     }
+    @DeleteMapping("/delete/{gid}")
+    public ResponseEntity<Result<?>> deleteGroup(@PathVariable int gid, @RequestHeader("Group-Email") String email) {
+        return groupService.deleteGroup(gid, email);
+    }
      @PutMapping("/update")
      public ResponseEntity<Result<?>> updateGroup(@RequestBody Group group) {
          return groupService.updateGroup(group);

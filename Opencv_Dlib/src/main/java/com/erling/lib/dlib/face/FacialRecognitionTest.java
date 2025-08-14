@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class FacialRecognitionTest {
 
     @LibraryAnn(
-            WindowsPath = "E:\\SmartSecurity\\SmartSecurityWeb\\lib\\x64\\debug\\SmartSecurityCoreLibTest"
+            WindowsPath = ".\\lib\\x64\\debug\\SmartSecurityCoreLibTest"
     )
     interface  faceTest extends FacialRecognition{}
 

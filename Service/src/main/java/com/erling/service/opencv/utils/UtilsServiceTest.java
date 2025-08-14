@@ -3,13 +3,19 @@ package com.erling.service.opencv.utils;
 import com.erling.lib.instance.Instance;
 import com.erling.lib.opencv.struct.output.ImageData;
 import com.erling.lib.opencv.utils.Utils;
+import com.erling.utils.log.Logger;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UtilsServiceTest {
     Utils utils;
     public UtilsServiceTest() {
-        utils = Instance.OPENCV_4120_UTILS.getInstance();
+        try{
+            utils = Instance.OPENCV_4120_UTILS.getInstance();
+        }catch(Exception e){
+            Logger.getLogger(UtilsServiceTest.class).error("加载模型失败",e);
+        }
+
     }
     public byte[] Test1(byte[] input){
         long startTime = System.currentTimeMillis();  // 新增：记录开始时间

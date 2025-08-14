@@ -13,9 +13,11 @@ public class GroupMemberAspect extends ControllerAspect {
 
     @Around("execution(* com.erling.controller.group.GroupMemberController.*(..))")
     public Object isAccessAll(ProceedingJoinPoint joinPoint) throws Throwable {
+        long startTime = System.currentTimeMillis();
         Logger.getLogger(getClass()).info("----------------------------------------------");
         isAccessFunfParam(joinPoint);
         isAccessCallFunf(joinPoint);
-        return isAccessReturn(joinPoint);
+
+        return isAccessReturn(joinPoint,startTime);
     }
 }

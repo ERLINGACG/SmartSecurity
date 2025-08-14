@@ -14,6 +14,9 @@ public interface AspectInterface {
     void isAccessReturn();
 
 
+    void isAccessFuncTime();
+
+
 
 
 

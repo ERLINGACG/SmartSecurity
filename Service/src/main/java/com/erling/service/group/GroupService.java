@@ -1,18 +1,24 @@
 package com.erling.service.group;
 
 import com.erling.dao.group.GroupMapper;
+import com.erling.dao.group.GroupMemberMapper;
 import com.erling.entity.group.Group;
+import com.erling.entity.group.GroupMember;
 import com.erling.utils.log.Logger;
 import com.erling.utils.result.Result;
 import com.erling.utils.result.ResultEnum;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GroupService {
     GroupMapper  groupMapper;
-    public GroupService(GroupMapper groupMapper) {
+    GroupMemberMapper groupMemberMapper;
+    public GroupService(GroupMapper groupMapper,GroupMemberMapper groupMemberMapper) {
         this.groupMapper = groupMapper;
+        this.groupMemberMapper = groupMemberMapper;
     }
 
     public ResponseEntity<Result<?>> addGroup(Group group) {
@@ -39,6 +45,12 @@ public class GroupService {
     }
     public ResponseEntity<Result<?>> deleteGroup(int groupId,String groupEmail) {
         try{
+
+            List<GroupMember> groupMembers = groupMemberMapper.selectGroupMembers(groupId);
+            for(GroupMember groupMember : groupMembers){
+              Boolean flag =  groupMemberMapper.deleteGroupMember(groupId,groupMember.getMid());
+              System.out.println(flag);
+            }
             if(groupMapper.deleteGroup(groupId,groupEmail)){
                 return ResponseEntity.
                         ok().

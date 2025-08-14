@@ -34,9 +34,15 @@ public class ControllerAspect extends GroupAspectBase {
 
     }
 
-    public Object  isAccessReturn(ProceedingJoinPoint joinPoint) throws Throwable {
+
+    public Object  isAccessReturn(
+            ProceedingJoinPoint joinPoint,
+            long startTime
+    ) throws Throwable {
         Object result = joinPoint.proceed();
         Logger.getLogger(getClass()).info("方法返回: {}", result);
+        long endTime = System.currentTimeMillis();
+        Logger.getLogger(getClass()).info("方法执行时间: {} ms", endTime - startTime);
         return result;
     }
 
@@ -44,6 +50,8 @@ public class ControllerAspect extends GroupAspectBase {
     public Object isAccessAll(ProceedingJoinPoint joinPoint) throws Throwable {
         return super.isAccessAll(joinPoint);
     }
+
+
 
 
 

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,4 +18,5 @@ public class GroupMember {
     String memberGender;         //成员性别
     String memberDescription;    //成员描述
     byte[] memberFeature;        //成员特征
+    LocalDateTime updateTime;    //更新时间
 }

@@ -12,6 +12,9 @@ import com.sun.jna.Pointer;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.erling.lib.dlib.struct.data.Output;
+
+import java.time.LocalDateTime;
+
 @Service
 public class GroupMemberService {
 
@@ -24,15 +27,19 @@ public class GroupMemberService {
 
     public GroupMemberService(GroupMemberMapper groupMemberMapper) {
         this.groupMemberMapper = groupMemberMapper;
-        this.facialRecognitionE = RF.loading();
-        FaceNew faceNew=new FaceNew();
-        faceNew.predictor_path="lib/x64/debug/shape_predictor_68_face_landmarks.dat";
-        faceNew.recognition_Path="lib/x64/debug/dlib_face_recognition_resnet_model_v1.dat";
-        faceRec=facialRecognitionE.createFacialRecognition(faceNew);
-
+        try{
+            this.facialRecognitionE = RF.loading();
+            FaceNew faceNew=new FaceNew();
+            faceNew.predictor_path="lib/x64/debug/shape_predictor_68_face_landmarks.dat";
+            faceNew.recognition_Path="lib/x64/debug/dlib_face_recognition_resnet_model_v1.dat";
+            faceRec=facialRecognitionE.createFacialRecognition(faceNew);
+        }catch(Exception e){
+            Logger.getLogger(GroupMemberService.class).error("加载模型失败",e);
+        }
     }
     public ResponseEntity<Result<?>> addGroupMember(GroupMember groupMember,byte[] imageInput) {
          try{
+             groupMember.setUpdateTime(LocalDateTime.now());
              Output output=new Output();
              facialRecognitionE.getDetection(faceRec,imageInput,imageInput.length,output);
              groupMember.setMemberFeature(output.getBuffer());
@@ -65,6 +72,8 @@ public class GroupMemberService {
                           groupMember.getMemberFeature(),
                           groupMember.getMemberFeature().length);
                result=distance;
+               System.out.println("distance:"+distance);
+               System.out.println("result:"+result);
                if(distance<0.5){
                    return ResponseEntity.ok(
                            new Result<>(
@@ -72,14 +81,22 @@ public class GroupMemberService {
                                    distance
                            )
                    );
+               }else{
+                   return ResponseEntity.ok(
+                           new Result<>(
+                                   ResultEnum.MEMBER_VERIFY_DISTANCE_HIGH,
+                                   result
+                           )
+                   );
                }
              }
              return ResponseEntity.ok(
                      new Result<>(
-                             ResultEnum.MEMBER_VERIFY_DISTANCE_HIGH,
+                             ResultEnum.MEMBER_VERIFY_GROUP_ISNULL,
                              result
                      )
              );
+
          }catch(Exception e){
              Logger.getLogger(GroupMemberService.class).error("验证成员失败",e);
              return ResponseEntity.ok(
@@ -89,6 +106,63 @@ public class GroupMemberService {
                      )
              );
          }
+    }
+
+    public ResponseEntity<Result<?>> getGroupMembers(int gid){
+        try{
+            return ResponseEntity.ok(
+                    new Result<>(200,
+                            "获取成功",
+                            groupMemberMapper.selectGroupMembers(gid)
+                    )
+            );
+        }catch(Exception e){
+            Logger.getLogger(GroupMemberService.class).error("获取成员失败",e);
+            return ResponseEntity.ok(
+                    new Result<>(
+                            ResultEnum.INTERNAL_SERVER_ERROR,
+                            e.getMessage()
+                    )
+            );
+        }
+    }
+    public ResponseEntity<Result<?>> updateGroupMember(GroupMember groupMember){
+        try{
+            groupMember.setUpdateTime(LocalDateTime.now());
+            return ResponseEntity.ok(
+                    new Result<>(200,
+                            "更新成功",
+                            groupMemberMapper.updateGroupMember(groupMember)
+                    )
+            );
+        }catch(Exception e){
+            Logger.getLogger(GroupMemberService.class).error("更新成员失败",e);
+            return ResponseEntity.ok(
+                    new Result<>(
+                            ResultEnum.INTERNAL_SERVER_ERROR,
+                            e.getMessage()
+                    )
+            );
+        }
+    }
+    public ResponseEntity<Result<?>> deleteGroupMember(int gid,int mid){
+        try{
+            return ResponseEntity.ok(
+                    new Result<>(200,
+                            "删除成功",
+                            groupMemberMapper.deleteGroupMember(gid,mid)
+                    )
+            );
+            }
+        catch(Exception e){
+            Logger.getLogger(GroupMemberService.class).error("删除成员失败",e);
+            return ResponseEntity.ok(
+                    new Result<>(
+                            ResultEnum.INTERNAL_SERVER_ERROR,
+                            e.getMessage()
+                    )
+            );
+        }
     }
 
 }

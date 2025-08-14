@@ -50,7 +50,7 @@ public enum ResultEnum {
     GROUP_UPDATE_FAIL(4009, "分组更新失败"),
 
 
-    MEMBER_NOT_EXIST(4001, "<UNK>"),
+    MEMBER_NOT_EXIST(4001, "成员不存在"),
     MEMBER_EXIST(4002, "成员已存在"),
     MEMBER_ADD_SUCCESS(2009, "成员添加成功"),
     MEMBER_ADD_FAIL(4003, "成员添加失败"),
@@ -63,6 +63,7 @@ public enum ResultEnum {
     MEMBER_VERIFY_SUCCESS(2010, "成员验证成功"),
     MEMBER_VERIFY_FAIL(4010, "成员验证失败"),
     MEMBER_VERIFY_DISTANCE_HIGH(4011, "成员验证距离过高"),
+    MEMBER_VERIFY_GROUP_ISNULL(4012, "成员验证分组为空"),
 
     ; // 原200改为4位业务码
 
