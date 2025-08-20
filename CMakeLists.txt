@@ -33,13 +33,12 @@ add_library(SmartSecurityCoreLibTest SHARED
    src/cv/main/edge/EdgeDetectionMain.cpp  #边缘检测主函数
    src/cv/main/dnn/DnnDetectionMain.cpp   #yolo检测主函数
    src/cv/main/dnn/DnnDetectionFaceMain.cpp
-   src/cv/main/Utils/UtilsMain.cpp         #工具类主函数
 
 
    src/dlib/utlis/DlibUtils.cpp            #dlib工具类
    src/dlib/face/facialRecognition.cpp     #dlib人脸识别
    src/dlib/main/face/facialRecognitionMain.cpp
-
+        src/cv/dnn/face/DnnFeatureFace.cpp
 
 
 )

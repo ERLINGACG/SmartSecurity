@@ -7,7 +7,6 @@
 #include "smartsecurity/cv/edge/edgedetection.h"
 #include "smartsecurity/cv/dnn/dnnDetection.h"
 #include "smartsecurity/cv/dnn/dnnDetectionFace.h"
-
 #include "smartsecurity/cv/utils/utils.h"
 #include "smartsecurity/cv/param/dnnParam.h"
 
@@ -18,6 +17,6 @@
 #include <iomanip>             // 新增：用于流控制符
 #include <string>
 #define CORE_CV_API __declspec(dllexport)
-
+#define EXPORT_USE [[maybe_unused]]
 
 #endif

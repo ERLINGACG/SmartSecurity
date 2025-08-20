@@ -3,12 +3,21 @@
 
 namespace cv_dnn::param::face{
 
-       struct  faceParam{
+       struct  FaceParam{
+
+           char* caffemodel_path;
+           char* prototxt_path;
+           bool isCuda;
+
+           ~FaceParam()=default;
+       };
+       struct FaceFeatureParam{
            std::string modelPath;
            bool isCuda;
 
-           ~faceParam()=default;
+           ~FaceFeatureParam()=default;
        };
+
 }
 namespace cv_dnn::param::yolo{
     struct yoloParam{

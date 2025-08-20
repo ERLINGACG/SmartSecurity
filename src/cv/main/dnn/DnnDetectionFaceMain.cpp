@@ -5,7 +5,26 @@
 using  namespace cv_dnn::face;
 
 extern "C"{
-    DnnDetectorFace* DnnDetectorFaceCreate(const char* Yolo_path, bool isCUDA, double confThreshold, double nmsThreshold){
-        return new DnnDetectorFace(Yolo_path,isCUDA,confThreshold,nmsThreshold);
+ EXPORT_USE CORE_CV_API DnnDetectorFace* DnnDetectorFaceCreate(cv_dnn::param::face::FaceParam* param){
+        return new DnnDetectorFace(param);
+    }
+ EXPORT_USE CORE_CV_API DnnFeatureFace* DnnFeatureFaceCreate(cv_dnn::param::face::FaceFeatureParam* param){
+        return new DnnFeatureFace(param);
+    }
+}
+extern "C"{
+    EXPORT_USE CORE_CV_API void DnnDetectorFaceGetFaceFeature_0(DnnDetectorFace* dnnDetectorFace,
+                                                                unsigned char* inputData, int size,
+                                                                cv_param::EncodeParam* encodeParam,
+                                                                cv_dnn::face::DnnFeatureFace* faceFeature,
+                                                                data::ImageData& OutputData,data::FaceFeatureByte  & faceFeatureByte){
+        dnnDetectorFace->getFaceFeature(
+                inputData,size,
+                encodeParam,
+                faceFeature,
+                OutputData,faceFeatureByte);
+    }
+    EXPORT_USE CORE_CV_API double DnnDetectorFaceGetDistanceForByte(unsigned char* input_1, unsigned char* input_2){
+        return DnnDetectorFace::getDistanceForByte(input_1,input_2);
     }
 }
