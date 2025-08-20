@@ -62,6 +62,7 @@ public enum ResultEnum {
     MEMBER_UPDATE_FAIL(4009, "成员更新失败"),
     MEMBER_VERIFY_SUCCESS(2010, "成员验证成功"),
     MEMBER_VERIFY_FAIL(4010, "成员验证失败"),
+    MEMBER_VERIFY_FACES_ISNULL(4013, "未检测到人脸"),
     MEMBER_VERIFY_DISTANCE_HIGH(4011, "成员验证距离过高"),
     MEMBER_VERIFY_GROUP_ISNULL(4012, "成员验证分组为空"),
 

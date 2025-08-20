@@ -5,6 +5,7 @@ import com.erling.entity.group.GroupMember;
 import com.erling.lib.dlib.struct.param.FaceNew;
 import com.erling.lib.instance.Load;
 import com.erling.service.group.dlib.FacialRecognitionE;
+import com.erling.service.opencv.dnn.CVDnnFaceService;
 import com.erling.utils.log.Logger;
 import com.erling.utils.result.Result;
 import com.erling.utils.result.ResultEnum;
@@ -14,19 +15,22 @@ import org.springframework.stereotype.Service;
 import com.erling.lib.dlib.struct.data.Output;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 @Service
 public class GroupMemberService {
 
     GroupMemberMapper  groupMemberMapper;
+    CVDnnFaceService  cvdnnFaceService;
 
     FacialRecognitionE facialRecognitionE;
     Pointer faceRec;
     Load RF = new Load(FacialRecognitionE.class);
 
 
-    public GroupMemberService(GroupMemberMapper groupMemberMapper) {
+    public GroupMemberService(GroupMemberMapper groupMemberMapper,CVDnnFaceService cvdnnFaceService) {
         this.groupMemberMapper = groupMemberMapper;
+        this.cvdnnFaceService = cvdnnFaceService;
         try{
             this.facialRecognitionE = RF.loading();
             FaceNew faceNew=new FaceNew();
@@ -40,9 +44,8 @@ public class GroupMemberService {
     public ResponseEntity<Result<?>> addGroupMember(GroupMember groupMember,byte[] imageInput) {
          try{
              groupMember.setUpdateTime(LocalDateTime.now());
-             Output output=new Output();
-             facialRecognitionE.getDetection(faceRec,imageInput,imageInput.length,output);
-             groupMember.setMemberFeature(output.getBuffer());
+             byte[] feature = cvdnnFaceService.getFeatureForByte(imageInput);
+             groupMember.setMemberFeature(feature);
              return ResponseEntity.ok(
                      new Result<>(
                              ResultEnum.MEMBER_ADD_SUCCESS,
@@ -62,38 +65,47 @@ public class GroupMemberService {
     public ResponseEntity<Result<?>> verifyGroupMemberMysql(int gid, byte[] imageInput) {
          try{
              double result=0;
+             HashMap<String,Object> map=new HashMap<>();
              Output output=new Output();
              facialRecognitionE.getDetection(faceRec,imageInput,imageInput.length,output);
-             for(GroupMember groupMember:groupMemberMapper.selectGroupMembers(gid)){
+             if(output.size==0){
+                 return ResponseEntity.ok(
+                         new Result<>(
+                                 ResultEnum.MEMBER_VERIFY_FACES_ISNULL,
+                                 null
+                         )
+                 );
+             }
+             int sum=0;
+             for(GroupMember groupMember:groupMemberMapper.selectGroupMembersALL(gid)){
+               sum++;
+               System.out.println("sum:"+sum);
                double distance =   facialRecognitionE.getDistance(
                           faceRec,
                           output.getBuffer(),
                           output.getBuffer().length,
                           groupMember.getMemberFeature(),
-                          groupMember.getMemberFeature().length);
+                          groupMember.getMemberFeature().length
+               );
+
                result=distance;
                System.out.println("distance:"+distance);
                System.out.println("result:"+result);
-               if(distance<0.5){
+               if(distance<0.6){
+                   map.put("memberName",groupMember.getMemberName());
+                   map.put("distance",distance);
                    return ResponseEntity.ok(
                            new Result<>(
                                    ResultEnum.MEMBER_VERIFY_SUCCESS,
-                                   distance
-                           )
-                   );
-               }else{
-                   return ResponseEntity.ok(
-                           new Result<>(
-                                   ResultEnum.MEMBER_VERIFY_DISTANCE_HIGH,
-                                   result
+                                   map
                            )
                    );
                }
              }
              return ResponseEntity.ok(
                      new Result<>(
-                             ResultEnum.MEMBER_VERIFY_GROUP_ISNULL,
-                             result
+                             ResultEnum.MEMBER_VERIFY_FACES_ISNULL,
+                             map
                      )
              );
 

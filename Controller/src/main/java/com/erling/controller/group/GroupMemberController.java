@@ -14,6 +14,7 @@ import java.io.IOException;
 @RequestMapping("/group/member")
 public class GroupMemberController {
     GroupMemberService groupMemberService;
+
     public GroupMemberController(GroupMemberService groupMemberService) {
         this.groupMemberService = groupMemberService;
     }
